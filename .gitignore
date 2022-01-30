@@ -1,0 +1,4 @@
+__pycache__/
+dist
+CulturelandPython.egg-info
+chromedriver
