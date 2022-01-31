@@ -6,12 +6,7 @@
 ### 1. PIP Installation
 Simply use `pip install CulturelandPython`.
 ### 2. Chromium Installation
-Since this project is using chromium and selenium for its webdrivers, you have to download each web drivers. 
-- Check your Chrome version. If you do not have one, get one.
-- Download Chromium driver from https://chromedriver.chromium.org/downloads
-- **Download Chromium driver that matches your Chrome Version**
-- **Any difference in between Chromium driver and Chrome version will result in unexpected exceptions and errors**
-- Save `chromedriver` or `chromedriver.exe` into a directory you can remember.
+This project automatically detects your chrome version and downloads webdriver using [webdriver_manager](https://github.com/SergeyPirogov/webdriver_manager). Special thanks to the original repository owner.
 
 ## Usage
 This Python library has 2 main features. Logging in and redeeming giftcards. You can achieve that goal by using Python expressions below.
