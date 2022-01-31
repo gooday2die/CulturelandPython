@@ -1,6 +1,9 @@
 from selenium import webdriver
 from CulturelandPython import redeemCode, login
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
 
+import os
 
 class CulturelandClient:
     """
@@ -29,8 +32,9 @@ class CulturelandClient:
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
         # Have fake client info so that this is not considered headless
         options.add_argument("headless")  # Open with headless
-
-        self.web_driver = webdriver.Chrome(executable_path=self.chromedriver_dir, chrome_options=options)
+        os.environ['WDM_LOG_LEVEL'] = '0'
+        self.web_driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),  chrome_options=options)
+        #self.web_driver = webdriver.Chrome(executable_path=self.chromedriver_dir, chrome_options=options)
         self.web_driver.get("https://m.cultureland.co.kr/mmb/loginMain.do")  # open login page
         try:
             login.login(self.web_driver, self.username, self.passwd)
