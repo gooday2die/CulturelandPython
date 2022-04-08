@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(
     name='CulturelandPython',
-    version='0.1.1',
+    version='0.1.2',
     description='An Unofficial Python Library for Cultureland',
-    url='https://github.com/gooday2die/CulturelandSA',
+    url='https://github.com/gooday2die/CulturelandPython',
     author='Gooday2die',
     author_email='edina00@naver.com',
     license='GPL',

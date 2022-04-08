@@ -27,16 +27,25 @@ def redeem_code(code, web_driver):
     key_dict = generate_key_dict(web_driver)  # get the key dict
     enter_last_key(code_4, web_driver, key_dict)  # enter last 4
     web_driver.find_element(By.XPATH, "//*[@id=\"btnCshFrom\"]").click()  # Submit
-    try:
-        amount_redeemed = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[3]/section/dl/dd").text
-    except selenium.common.exceptions.NoSuchElementException:
-        amount_redeemed = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[1]/section/dl/dd").text
+
+    amount_redeemed = ""
+    for i in range(10):
+        try:
+            amount_redeemed = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[" + str(i) + "]/section/dl/dd").text
+            if len(amount_redeemed) != 0:
+                break
+        except selenium.common.exceptions.NoSuchElementException:
+            pass
 
     if amount_redeemed == "0원":  # If the code was invalid
-        try:
-            error_reason = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[3]/section/div/table/tbody/tr/td[3]/b").text
-        except selenium.common.exceptions.NoSuchElementException:
-            error_reason = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[1]/section/div/table/tbody/tr/td[3]/b").text
+        error_reason = ""
+        for i in range(10):
+            try:
+                error_reason = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[" + str(i) + "3]/section/div/table/tbody/tr/td[3]/b").text
+                if len(error_reason) != 0:
+                    break
+            except selenium.common.exceptions.NoSuchElementException:
+                pass
         return [False, error_reason]
     else:
         amount_redeemed = amount_redeemed.replace("," , "")
