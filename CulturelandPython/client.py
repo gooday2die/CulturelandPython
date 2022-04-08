@@ -10,7 +10,7 @@ class CulturelandClient:
     """
     A class that is a single session and a single client for logging in
     """
-    def __init__(self, username, passwd, chromedriver_dir):
+    def __init__(self, username, passwd):
         """
         A init method for class CulturelandClient
         :param username: The username
@@ -18,7 +18,6 @@ class CulturelandClient:
         """
         self.username, self.passwd = username, passwd
         self.web_driver = None
-        self.chromedriver_dir = chromedriver_dir
 
         self.login()
 
@@ -36,13 +35,13 @@ class CulturelandClient:
         os.environ['WDM_LOG_LEVEL'] = '0'
         service = Service(executable_path=ChromeDriverManager().install())
         self.web_driver = webdriver.Chrome(service=service, chrome_options=options)
-        #self.web_driver = webdriver.Chrome(executable_path=self.chromedriver_dir, chrome_options=options)
         self.web_driver.get("https://m.cultureland.co.kr/mmb/loginMain.do")  # open login page
         try:
             login.login(self.web_driver, self.username, self.passwd)
-            print("[SUCCESS] User " + self.username + " Logged in Successfully.")
+            # print("[SUCCESS] User " + self.username + " Logged in Successfully.")
         except login.LoginFailureException:
-            print("[ERROR] User " + self.username + " Failed to login.")
+            pass
+            # print("[ERROR] User " + self.username + " Failed to login.")
 
     def redeem(self, code):
         """
@@ -53,9 +52,11 @@ class CulturelandClient:
         """
         result = redeemCode.redeem_code(code, self.web_driver)
         if result[0]:
-            print("[SUCCESS] User " + self.username + " successfully redeemed code: " + code)
+            # print("[SUCCESS] User " + self.username + " successfully redeemed code: " + code)
+            pass
         else:
-            print("[ERROR] User " + self.username + " failed to redeem code " + code + " : " + result[1])
+            # print("[ERROR] User " + self.username + " failed to redeem code " + code + " : " + result[1])
+            pass
         #self.disconnect()
         return result
 

@@ -41,7 +41,7 @@ def redeem_code(code, web_driver):
         error_reason = ""
         for i in range(10):
             try:
-                error_reason = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[" + str(i) + "3]/section/div/table/tbody/tr/td[3]/b").text
+                error_reason = web_driver.find_element(By.XPATH, "//*[@id=\"wrap\"]/div[" + str(i) + "]/section/div/table/tbody/tr/td[3]/b").text
                 if len(error_reason) != 0:
                     break
             except selenium.common.exceptions.NoSuchElementException:
@@ -49,6 +49,8 @@ def redeem_code(code, web_driver):
         return [False, error_reason]
     else:
         amount_redeemed = amount_redeemed.replace("," , "")
+        amount_redeemed = amount_redeemed.replace("원", "")
+        amount_redeemed = int(amount_redeemed)
         return [True, amount_redeemed]
 
 
