@@ -11,21 +11,37 @@ This project automatically detects your chrome version and downloads webdriver u
 ## Usage
 This Python library has 2 main features. Logging in and redeeming giftcards. You can achieve that goal by using Python expressions below.
 
+### Logging in - Success
 ```
 from CulturelandPython import client
->>> c = client.CulturelandClient('gooday2die', 'PASSWORD', './chromedriver')
-[SUCCESS] User gooday2die Logged in Successfully.
+>>> c = client.CulturelandClient('gooday2die', 'PASSWORD')
+>>> c
+Cultureland Client Object, Logged in as gooday2die
 ```
-Import CulturelandPython library and also make an CulturelandClient object. This process might take some time to generate an object. While the object is being generated, the object automatically logs into Cultureland website. When you get the message `[SUCCESS] User gooday2die Logged in Successfully.` It means that the object has been successfully generated. If you are willing to use this class in a big project or fast runtime demanding project, I would suggest you using `asyncio` when using this class.
+Using `CulturelandClient` class from `client` will generate an client object that is connected to the Cultureland System. If the login was successful, there will be **no return value**. If you are willing to use this class in a big project or fast runtime demanding project, I would suggest you using `asyncio` or `threading` when using this class.
 
+### Logging in - Failure
+```
+>>> c = client.CulturelandClient("gooday2die", "WRONG_PASSWD")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/gooday2die/.local/lib/python3.8/site-packages/CulturelandPython/client.py", line 21, in __init__
+    self.login()
+  File "/home/gooday2die/.local/lib/python3.8/site-packages/CulturelandPython/client.py", line 38, in login
+    login.login(self.web_driver, self.username, self.passwd)
+  File "/home/gooday2die/.local/lib/python3.8/site-packages/CulturelandPython/login.py", line 23, in login
+    raise LoginFailureException
+CulturelandPython.login.LoginFailureException
+```
+When logging into the system with incorrect credentials, there will be `Exception` thrown as `CulturelandPython.login.LoginFailureException`.
+
+###  Redeeming 
 ```
 >>> c
 Cultureland Client Object, Logged in as gooday2die
 >>> c.redeem('4180-0252-0565-2549')
-[SUCCESS] User gooday2die successfully redeemed code: 4180-0252-0565-2549
-[True, '1000원']
+[True, 1000]
 >>> c.redeem('4180-0252-0565-2549')
-[ERROR] User gooday2die failed to redeem code 4180-0252-0565-2549 : 잔액이 0원인 상품권
 [False, '잔액이 0원인 상품권']
 ```
 You can redeem by using `redeem` method of `CulturelandClient` object. The method returns `list` type object. 

@@ -18,13 +18,11 @@ class CulturelandClient:
         """
         self.username, self.passwd = username, passwd
         self.web_driver = None
-
         self.login()
 
     def login(self):
         """
         A method that logs into the system
-        :return:
         """
         options = webdriver.ChromeOptions()
         options.add_argument('--disable-gpu')
@@ -36,12 +34,8 @@ class CulturelandClient:
         service = Service(executable_path=ChromeDriverManager().install())
         self.web_driver = webdriver.Chrome(service=service, chrome_options=options)
         self.web_driver.get("https://m.cultureland.co.kr/mmb/loginMain.do")  # open login page
-        try:
-            login.login(self.web_driver, self.username, self.passwd)
-            # print("[SUCCESS] User " + self.username + " Logged in Successfully.")
-        except login.LoginFailureException:
-            pass
-            # print("[ERROR] User " + self.username + " Failed to login.")
+
+        login.login(self.web_driver, self.username, self.passwd)
 
     def redeem(self, code):
         """
@@ -51,13 +45,6 @@ class CulturelandClient:
         :return:
         """
         result = redeemCode.redeem_code(code, self.web_driver)
-        if result[0]:
-            # print("[SUCCESS] User " + self.username + " successfully redeemed code: " + code)
-            pass
-        else:
-            # print("[ERROR] User " + self.username + " failed to redeem code " + code + " : " + result[1])
-            pass
-        #self.disconnect()
         return result
 
     def disconnect(self):
