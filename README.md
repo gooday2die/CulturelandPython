@@ -1,4 +1,6 @@
 # CulturelandPython
+> 컬쳐랜드 직원분들이 심기가 불편하셨는지는 모르겠으나 캡챠(Captcha)를 추가하셨습니다. 이걸 대응하기 위해서 소스코드를 일부 변경중입니다. 일부 기능이 동작하지 않을 수 있습니다.
+
 - A Python library for unofficial Cultureland. This Python library can login, and redeem gift cards into your account. **Be advised, this project is UNOFFICIAL you are responsible for everything that might occur due to using this python library.**
 - 컬쳐랜드 문화상품권 충전하는 파이썬 라이브러리입니다. 이 라이브러리는 로그인 및 문화상품권 충전을 할 수 있습니다. **이 프로젝트는 비공식이기에 이 파이썬 라이브러리를 사용하며 생기는 모든 문제는 본인에게 책임이 있습니다.**
 
