@@ -1,7 +1,7 @@
 from selenium import webdriver
 from CulturelandPython import redeemCode, login
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.utils import ChromeType
+from webdriver_manager.chrome import ChromeType
 from selenium.webdriver.chrome.service import Service
 
 import os
