@@ -2,7 +2,10 @@ import selenium.common.exceptions
 from selenium.webdriver.common.by import By
 
 
-class CodeInvalidError:
+class CodeInvalidError(Exception):
+    """
+    A class that is for Exception on invalid codes.
+    """
     pass
 
 

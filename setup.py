@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:  # Read README.md file for 
 
 setup(
     name='CulturelandPython',
-    version='0.1.2',
+    version='0.1.3',
     description='An Unofficial Python Library for Cultureland',
     url='https://github.com/gooday2die/CulturelandPython',
     author='Gooday2die',
@@ -15,7 +15,7 @@ setup(
     packages=['CulturelandPython'],
     long_description_content_type="text/markdown",
     long_description=long_description,
-    install_requires=['selenium', 'webdriver-manager'],
+    install_requires=['selenium', 'webdriver-manager', 'anticaptchaofficial', 'PILLOW'],
     classifiers=[
         'Programming Language :: Python :: 3.8',
     ],

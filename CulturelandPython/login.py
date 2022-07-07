@@ -1,17 +1,21 @@
 from selenium.webdriver.common.by import By
+from CulturelandPython import misc
 
 
 class LoginFailureException(Exception):
+    """
+    A function for login failure when logging into the system
+    """
     pass
 
 
-def login(web_driver, username, password):
+def login(web_driver, username, password, key):
     """
     A function that logs into the Cultureland Website like magic!
-    :param web_driver: The web driver this session is using
-    :param username: The username to use
-    :param password: The password to use
-    :return:
+    :param username: The string object that represents Cultureland id
+    :param passwd: The string object that represents Cultureland password
+    :param key: The string object that represents AntiCaptcha API key
+    :return: returns none
     """
 
     web_driver.execute_script("$(\"#txtUserId\")[0].value = \"" + username + "\";")  # Input user name into system
@@ -19,8 +23,25 @@ def login(web_driver, username, password):
 
     keyboard_dict = generate_keyboard(web_driver)
     enter_password(password, keyboard_dict, web_driver)  # Enter password
+
+    misc.capture_captcha_image(web_driver)
+    misc.crop_captcha_image()
+
+    print("Waiting for Captcha...")
+    captcha_result = misc.get_captcha_solved(key)
+    print("Captcha Sovled: " + captcha_result)
+    misc.clean_up()
+
+    if captcha_result == 0:
+        raise misc.AntiCaptchaFailedException()
+    else:
+        web_driver.find_element_by_id('captchaCode').send_keys(captcha_result)
+        web_driver.find_element(By.XPATH, "//*[@id=\"btnLogin\"]").click()
+
     if web_driver.current_url == "https://m.cultureland.co.kr/mmb/loginMain.do":
         raise LoginFailureException
+    else:
+        misc.report_correct_captcha(key)
 
 
 def generate_keyboard(web_driver):
@@ -206,4 +227,3 @@ def enter_password(password_string, keyboard_dict, web_driver):
             web_driver.execute_script(j)
 
     web_driver.execute_script("mtk.done(event, this);")  # done typing password
-    web_driver.find_element(By.XPATH, "//*[@id=\"btnLogin\"]").click()
